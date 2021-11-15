@@ -1,0 +1,12 @@
+.form-validation.error > * {
+    border-color: red !important;
+}
+.form-validation.error .input-group-text {
+    border-color: red !important;
+}
+.form-validation.error input, .css-1s2u09g-control, .css-1pahdxg-control{
+    border-color: red !important;
+}
+.form-validation.error .form-text {
+    color: red !important;
+}

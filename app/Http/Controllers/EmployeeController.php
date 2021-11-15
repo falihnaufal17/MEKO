@@ -12,17 +12,19 @@ class EmployeeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'loginView']]);
     }
 
     public function index(){
-        $data = Employee::query();
+        $data = Employee::select('employee.*', 'role.name as role')
+        ->leftJoin('role', 'employee.role_id', '=', 'role.id');
 
         return DataTables::of($data)->make(true);
     }
 
     public function store(Request $request){
         $payload = $request->all();
+        $imageUrl = null;
         $rules = [
             'name' => 'required',
             'address' => 'required',
@@ -54,7 +56,9 @@ class EmployeeController extends Controller
             ], 400);
         }
 
-        $imageUrl = Uploader::uploadToS3('employee', $request->image, $request->image->getClientOriginalName());
+        if($request->hasFile('image')){
+            $imageUrl = Uploader::uploadToS3('employee', $request->image, $request->image->getClientOriginalName());
+        }
 
         $employee = Employee::create(array_merge($payload, ['password' => $passwordHash, 'image' => $imageUrl]));
 
@@ -65,11 +69,33 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function login(){
+    public function login(Request $request){
+        $payload = $request->all();
         $credentials = request(['phone', 'password']);
+        $rules = [
+            'phone' => 'required|numeric',
+            'password' => 'required'
+        ];
+
+        $validator = Validator::make($payload, $rules, [
+            'required' => "The field :attribute is required",
+            'numeric' => ":attribute must be number"
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "success" => false,
+                "message" => "Form invalid",
+                "data" => $validator->errors()
+            ], 400);
+        }
 
         if(!$token = auth()->attempt($credentials)){
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                "success" => false,
+                "message" => "Phone or Password doesn't match",
+                "data" => null
+            ], 401);
         }
 
         return $this->respondWithToken($token);
@@ -193,5 +219,9 @@ class EmployeeController extends Controller
             "message" => "Success delete data id $id",
             "data" => $id
         ]);
+    }
+
+    public function loginView(){
+        return view('login.login');
     }
 }

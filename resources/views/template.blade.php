@@ -22,11 +22,14 @@
         <link href="assets/css/default-dashboard/style.css" rel="stylesheet" type="text/css" />
         <link href="plugins/animate/animate.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/modals/component.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/ui-kit/custom-modal.css" rel="stylesheet" type="text/css" />
         <script src="plugins/sweetalerts/promise-polyfill.js"></script>
         <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
         <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/ui-kit/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+        <link href="scss/validation.css" rel="stylesheet"/>
+        <link href="plugins/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="plugins/dropzone/basic.min.css" rel="stylesheet" type="text/css" />
+        <link href="plugins/file-upload/file-upload-with-preview.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
         @yield('style')
     </head>
@@ -44,7 +47,7 @@
                 <li class="nav-item dropdown user-profile-dropdown pl-4 pr-lg-0 pr-2 ml-lg-2 mr-lg-4  align-self-center">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user">
                         <div class="user-profile d-lg-block d-none">
-                            <img src="assets/img/90x90.jpg" alt="admin-profile" class="img-fluid">
+                            <img src="assets/img/90x90.jpg" id="logged-pict-nav" alt="admin-profile" class="img-fluid">
                         </div>
                         <i class="flaticon-user-7 d-lg-none d-block"></i>
                     </a>
@@ -91,7 +94,7 @@
                             </li>
 
                             <li class="menu">
-                                <a href="#tables-forms">
+                                <a href="/employee">
                                     <div class="">
                                         <i class="flaticon-employees"></i>
                                         <span>Employee</span>
@@ -130,9 +133,9 @@
         <aside class="profile-sidebar text-center">
             <div class="profile-content profile-content-scroll">
                 <div class="usr-profile">
-                    <img src="assets/img/90x90.jpg" alt="admin-profile" class="img-fluid">
+                    <img src="assets/img/90x90.jpg" id="logged-pict" class="img-fluid">
                 </div>
-                <p class="user-name mt-4 mb-4">Vincent Carpenter</p>
+                <p class="user-name mt-4 mb-4 text-capitalize" id="logged-name">Vincent Carpenter</p>
                 <div class="">
                     <div class="accordion" id="user-stats">
                         <div class="card">
@@ -208,9 +211,24 @@
     <script src="assets/js/modal/modalEffects.js"></script>
     <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
     <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
+    <script src="plugins/dropzone/dropzone.min.js"></script>
+    <script src="plugins/dropzone/custom-dropzone.js"></script>
+    <script src="plugins/file-upload/file-upload-with-preview.js"></script>
     <script>
         let base_url = $('input[name=base_url]').val()
+        let profile = JSON.parse(localStorage.getItem('profile'))
+
+        if(profile.name == null){
+            document.querySelector('#logged-pict').src = profile.image
+            document.querySelector('#logged-pict-nav').src = profile.image
+        }else{
+            document.querySelector('#logged-pict').src = "assets/img/90x90.jpg"
+            document.querySelector('#logged-pict-nav').src = "assets/img/90x90.jpg"
+        }
+        document.querySelector('#logged-name').innerHTML = profile.name
+        
     </script>
+    <script src="js/helper.js"></script>
     @yield('script')
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 </html>
