@@ -45,7 +45,8 @@ class EmployeeController extends Controller
         $validator = Validator::make($payload, $rules, [
             'required' => "The field :attribute is required",
             'unique' => ":attribute is already exist",
-            'image' => "The field :attribute must be image (jpg, jpeg, png, bmp, gif, svg, or webp)"
+            'image' => "The field :attribute must be image (jpg, jpeg, png, bmp, gif, svg, or webp)",
+            'min' => ":attribute minimum 8 character"
         ]);
 
         if($validator->fails()){

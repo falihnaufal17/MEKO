@@ -24,8 +24,6 @@
         <link href="assets/css/modals/component.css" rel="stylesheet" type="text/css" />
         <script src="plugins/sweetalerts/promise-polyfill.js"></script>
         <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-        <link href="plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/ui-kit/custom-sweetalert.css" rel="stylesheet" type="text/css" />
         <link href="scss/validation.css" rel="stylesheet"/>
         <link href="plugins/dropzone/dropzone.min.css" rel="stylesheet" type="text/css" />
         <link href="plugins/dropzone/basic.min.css" rel="stylesheet" type="text/css" />
@@ -193,7 +191,6 @@
     </body>
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
-    <script src="assets/js/loader.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -204,13 +201,12 @@
             App.init();
         });
     </script>
+    <script src="plugins/table/datatable/datatables.js"></script>
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/default-dashboard/default-custom.js"></script>
-    <script src="plugins/table/datatable/datatables.js"></script>
     <script src="assets/js/modal/classie.js"></script>
     <script src="assets/js/modal/modalEffects.js"></script>
     <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
-    <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
     <script src="plugins/dropzone/dropzone.min.js"></script>
     <script src="plugins/dropzone/custom-dropzone.js"></script>
     <script src="plugins/file-upload/file-upload-with-preview.js"></script>
@@ -229,6 +225,7 @@
         
     </script>
     <script src="js/helper.js"></script>
+    <script src="assets/js/loader.js"></script>
     @yield('script')
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 </html>

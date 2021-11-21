@@ -58,7 +58,9 @@
                 localStorage.setItem('token', res.access_token)
                 localStorage.setItem('profile', JSON.stringify(res.data))
                 
-                window.location.href= "/"
+                setTimeout(() => {
+                    window.location.href= "/"
+                }, 800)
             }).catch((err) => {
                 checkValidFromResponse({el: "login-", source: {
                     phone: '',
