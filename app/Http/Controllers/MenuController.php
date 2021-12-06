@@ -126,6 +126,8 @@ class MenuController extends Controller
             $menu->approved_by = auth()->user()->name;
             $menu->approved_at = $this->carbonDate->toDateString();
             $menu->reason = null;
+            $menu->rejected_by = null;
+            $menu->rejected_at = null;
             $menu->save();
 
             return response()->json([
@@ -147,6 +149,8 @@ class MenuController extends Controller
 
         if (auth()->user()->role_id == 1) {
             $menu->status = 'reject';
+            $menu->approved_by = null;
+            $menu->approved_at = null;
             $menu->rejected_by = auth()->user()->name;
             $menu->rejected_at = $this->carbonDate->toDateString();
             $menu->reason = $req->reason;

@@ -60,46 +60,50 @@ const checkValidFromResponse = (
 };
 
 const formatDate = (date, isStringMonth = true, time = false) => {
-    let d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear(),
-        hours = d.getHours(),
-        minutes = d.getMinutes();
-
-    const stringMonth = [
-        "Jan",
-        "Febr",
-        "Mar",
-        "Apr",
-        "Mei",
-        "Jun",
-        "Jul",
-        "Agu",
-        "Sep",
-        "Okt",
-        "Nov",
-        "Des",
-    ];
-
-    if (hours < 10) {
-        hours = "0" + hours;
+    if (date != null || date != undefined) {
+        let d = new Date(date),
+            month = "" + (d.getMonth() + 1),
+            day = "" + d.getDate(),
+            year = d.getFullYear(),
+            hours = d.getHours(),
+            minutes = d.getMinutes();
+    
+        const stringMonth = [
+            "Jan",
+            "Febr",
+            "Mar",
+            "Apr",
+            "Mei",
+            "Jun",
+            "Jul",
+            "Agu",
+            "Sep",
+            "Okt",
+            "Nov",
+            "Des",
+        ];
+    
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+    
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+    
+        if (isStringMonth) {
+            month = stringMonth[month - 1];
+        }
+    
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+    
+        return isStringMonth
+            ? [day, month, year].join(" ") + (time ? " " + `${hours}:${minutes}` : '')
+            : [year, month, day].join("-");
+    } else {
+        return '-'
     }
-
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-
-    if (isStringMonth) {
-        month = stringMonth[month - 1];
-    }
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return isStringMonth
-        ? [day, month, year].join(" ") + (time ? " " + `${hours}:${minutes}` : '')
-        : [year, month, day].join("-");
 };
 
 const priceDecimal = (string) => {
