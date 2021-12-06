@@ -9,7 +9,7 @@ let ajax = {
         $("#eq-loader").hide();
     },
     error: function (jqXHR, textStatus, errorThrown) {
-        swal(textStatus.toUpperCase(), jqXHR.responseJSON.message, 'error')
+        swal(textStatus.toUpperCase(), jqXHR.responseJSON?.message || jqXHR.statusText, 'error')
         $("#eq-loader").hide();
     }
 }

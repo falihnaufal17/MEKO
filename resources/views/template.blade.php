@@ -117,6 +117,11 @@
 
             <!--  BEGIN CONTENT PART  -->
             <div id="content" class="main-content">
+                <div id="eq-loader">
+                    <div class="eq-loader-div">
+                        <div class="eq-loading dual-loader mx-auto mb-5"></div>
+                    </div>
+                </div>
                 <div class="container">
                     @yield('content')
                     <div class="md-overlay"></div>

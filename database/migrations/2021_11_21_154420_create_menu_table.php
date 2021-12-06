@@ -20,10 +20,10 @@ class CreateMenuTable extends Migration
             $table->string('status', 15);
             $table->integer('price');
             $table->text('image');
-            $table->string('reason', 100);
-            $table->integer('created_by');
-            $table->integer('updated_by')->nullable();
-            $table->integer('approved_by')->nullable();
+            $table->string('reason', 100)->nullable();
+            $table->string('created_by', 50);
+            $table->string('updated_by', 50)->nullable();
+            $table->string('approved_by', 50)->nullable();
             $table->date('approved_at')->nullable();
             $table->integer('category_id');
             $table->text('description');

@@ -1,11 +1,5 @@
 @extends('template')
 @section('content')
-
-    <div id="eq-loader">
-        <div class="eq-loader-div">
-            <div class="eq-loading dual-loader mx-auto mb-5"></div>
-        </div>
-    </div>
     <div class="page-header">
         <div class="page-title">
             <h3>Employee</h3>

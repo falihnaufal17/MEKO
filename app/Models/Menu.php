@@ -12,13 +12,18 @@ class Menu extends Model
     protected $table = 'menu';
     protected $fillable = [
         'name', 
-        'stock', 
+        'status_stock', 
         'status', 
         'price', 
         'image', 
         'reason', 
         'created_by', 
         'updated_by',
-        'approved_by'
+        'approved_by',
+        'approved_at',
+        'rejected_by',
+        'rejected_at',
+        'category_id',
+        'description'
     ];
 }

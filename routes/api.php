@@ -20,18 +20,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/menu/lists', [MenuController::class, 'index']);
-Route::post('/menu/create', [MenuController::class, 'create']);
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'menu'
+], function(){
+    Route::get('/list', [MenuController::class, 'index']);
+    Route::post('/create', [MenuController::class, 'store']);
+    Route::get('/categories', [MenuController::class, 'categories']);
+    Route::delete('/{id}', [MenuController::class, 'delete']);
+    Route::get('/{id}', [MenuController::class, 'detail']);
+    Route::post('/approve/{id}', [MenuController::class, 'approveMenu']);
+    Route::post('/reject/{id}', [MenuController::class, 'rejectMenu']);
+    Route::post('/change-stock/{id}', [MenuController::class, 'changeStatusStock']);
+});
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
-], function($router){
-    Route::post('/employee/refresh', [EmployeeController::class, 'refresh']);
-    Route::post('/employee/create', [EmployeeController::class, 'store']);
-    Route::post('/employee/login', [EmployeeController::class, 'login']);
-    Route::get('/employee/list', [EmployeeController::class, 'index']);
-    Route::get('/employee/{id}', [EmployeeController::class, 'detail']);
-    Route::post('/employee/{id}', [EmployeeController::class, 'update']);
-    Route::delete('/employee/{id}', [EmployeeController::class, 'delete']);
+    'prefix' => 'auth/employee'
+], function(){
+    Route::post('/refresh', [EmployeeController::class, 'refresh']);
+    Route::post('/create', [EmployeeController::class, 'store']);
+    Route::post('/login', [EmployeeController::class, 'login']);
+    Route::get('/list', [EmployeeController::class, 'index']);
+    Route::get('/{id}', [EmployeeController::class, 'detail']);
+    Route::post('/{id}', [EmployeeController::class, 'update']);
+    Route::delete('/{id}', [EmployeeController::class, 'delete']);
 });
