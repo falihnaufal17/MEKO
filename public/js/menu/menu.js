@@ -379,6 +379,6 @@ function openModalChangeStock(id, data){
 }
 
 function openReason(data) {
-    $('#reason-text').append(data)
+    $('#reason-text').html(data)
     $('#modal-show-reason').modal('show')    
 }
