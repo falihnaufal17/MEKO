@@ -73,7 +73,11 @@ function fetchDataMenu(){
                 }
             },
             {
-                data: 'approved_by'
+                data: 'approved_by',
+                render: (data) => {
+                    if (data) return data
+                    return '-'
+                }
             },
             {
                 data: 'approved_at',
@@ -82,7 +86,11 @@ function fetchDataMenu(){
                 }
             },
             {
-                data: 'rejected_by'
+                data: 'rejected_by',
+                render: (data) => {
+                    if (data) return data
+                    return '-'
+                }
             },
             {
                 data: 'rejected_at',
