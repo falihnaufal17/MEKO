@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [EmployeeController::class, 'loginView']);
-
 Route::get('/', function () {
     return view('dashboard');
 });
 
+Route::get('/login', [EmployeeController::class, 'loginView']);
+Route::get('/employee', [EmployeeController::class, 'employeeView']);
+
 Route::get('/menu', [MenuController::class, 'menuView']);
 
-Route::get('/employee', function () {
-    return view('employee.employee');
-});
+Route::get('/table', [TableController::class, 'tableView']);

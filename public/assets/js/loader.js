@@ -1,3 +1,4 @@
+$("#eq-loader").hide();
 let ajax = {
     beforeSend: function (xhr) {
         $("#eq-loader").show();

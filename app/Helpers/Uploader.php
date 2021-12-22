@@ -14,5 +14,11 @@ class Uploader
 
         return env('S3_URL', 'https://s3-ap-southeast-1.amazonaws.com/').$file;
     }
+
+    public static function uploadQrCodeToS3($output_file, $imageQrCode){
+        Storage::disk('s3')->put($output_file, $imageQrCode, 'public');
+
+        return env('S3_URL', 'https://s3-ap-southeast-1.amazonaws.com/').$output_file;
+    }
 }
 ?>

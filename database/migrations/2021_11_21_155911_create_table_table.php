@@ -17,7 +17,8 @@ class CreateTableTable extends Migration
             $table->id();
             $table->integer('number');
             $table->string('status', 15);
-            $table->text('qrcode_image');
+            $table->text('qrcode_image')->nullable();
+            $table->text('url')->nullable();
             $table->timestamps();
         });
     }

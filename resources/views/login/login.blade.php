@@ -12,10 +12,11 @@
     <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/users/login-1.css" rel="stylesheet" type="text/css" />
     <link href="scss/validation.css" rel="stylesheet"/>
+    <script src="plugins/sweetalerts/promise-polyfill.js"></script>
+    <link href="plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
-    
 </head>
-<body class="login">
+<body style="height: 100% !important;">
     <input type="hidden" value="{{env('APP_URL')}}" name="base_url">
     <form class="form-login" method="POST" autocomplete="off" aria-autocomplete="none" id="formLogin" onsubmit="login(event)">
         <div class="row">
@@ -38,6 +39,7 @@
     </form>
     
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
     <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
     <script src="assets/js/loader.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>

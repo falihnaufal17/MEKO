@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,14 @@ Route::group([
     Route::get('/{id}', [EmployeeController::class, 'detail']);
     Route::post('/{id}', [EmployeeController::class, 'update']);
     Route::delete('/{id}', [EmployeeController::class, 'delete']);
+});
+
+Route::group([
+    // 'middleware' => 'api',
+    'prefix' => 'table'
+], function(){
+    Route::get('/', [TableController::class, 'index']);
+    Route::post('/add', [TableController::class, 'store']);
+    Route::delete('/{id}', [TableController::class, 'delete']);
+    Route::patch('/{id}', [TableController::class, 'update']);
 });

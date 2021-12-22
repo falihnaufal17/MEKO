@@ -24,6 +24,8 @@ class CreateMenuTable extends Migration
             $table->string('created_by', 50);
             $table->string('updated_by', 50)->nullable();
             $table->string('approved_by', 50)->nullable();
+            $table->string('rejected_by', 50)->nullable();
+            $table->date('rejected_at')->nullable();
             $table->date('approved_at')->nullable();
             $table->integer('category_id');
             $table->text('description');

@@ -12,7 +12,7 @@ class EmployeeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'loginView']]);
+        $this->middleware('auth:api', ['except' => ['login', 'loginView', 'employeeView']]);
     }
 
     public function index(){
@@ -224,5 +224,9 @@ class EmployeeController extends Controller
 
     public function loginView(){
         return view('login.login');
+    }
+
+    public function employeeView(){
+        return view('employee.employee');
     }
 }
