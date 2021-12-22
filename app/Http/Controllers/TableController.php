@@ -30,7 +30,8 @@ class TableController extends Controller
         ];
 
         $validator = Validator::make($payload, $rules, [
-            'numeric' => "The field :attribute must be number"
+            'numeric' => "The field :attribute must be number",
+            'required' => "The field :attribute is required"
         ]);
 
         if($validator->fails()){
@@ -87,7 +88,8 @@ class TableController extends Controller
         ];
 
         $validator = Validator::make($payload, $rules, [
-            'numeric' => "The field :attribute must be number"
+            'numeric' => "The field :attribute must be number",
+            'required' => "The field :attribute is required"
         ]);
 
         if($validator->fails()){
@@ -104,6 +106,16 @@ class TableController extends Controller
             "success" => true,
             "message" => "Success update table",
             "data" => $updateTable
+        ]);
+    }
+
+    public function detail($id) {
+        $data = Table::find($id);
+
+        return response()->json([
+            "success" => true,
+            "message" => "Success fetch data",
+            "data" => $data
         ]);
     }
 }

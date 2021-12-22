@@ -74,7 +74,7 @@
                             </li>
 
                             <li class="menu">
-                                <a href="/menu">
+                                <a href="/table">
                                     <div class="">
                                         <i class="flaticon-desk-chair"></i>
                                         <span>Table</span>

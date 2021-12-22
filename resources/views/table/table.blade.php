@@ -6,6 +6,8 @@
         </div>
     </div>
     <div class="row" id="cancel-row">
+        @include('table.form-add')
+        @include('table.form-edit')
         <div class="col-12 col-md-12 layout-spacing" id="lists">
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
@@ -20,7 +22,7 @@
                 </div>
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4 style-1">
-                        <table id="zero-config" class="table table-striped style-1 table-hover table-bordered" style="width:100%">
+                        <table id="tables" class="table table-striped style-1 table-hover table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -43,5 +45,5 @@
     </div>
 @endsection
 @section('script')
-    <script src="js/menu/menu.js" defer></script>    
+    <script src="js/table/table.js" defer></script>    
 @endsection

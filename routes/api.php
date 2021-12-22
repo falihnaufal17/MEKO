@@ -55,5 +55,6 @@ Route::group([
     Route::get('/', [TableController::class, 'index']);
     Route::post('/add', [TableController::class, 'store']);
     Route::delete('/{id}', [TableController::class, 'delete']);
-    Route::patch('/{id}', [TableController::class, 'update']);
+    Route::post('/{id}', [TableController::class, 'update']);
+    Route::get('/{id}', [TableController::class, 'detail']);
 });
