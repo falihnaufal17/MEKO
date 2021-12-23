@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/login', [EmployeeController::class, 'loginView']);
-Route::get('/employee', [EmployeeController::class, 'employeeView']);
+Route::get('/admin/login', [EmployeeController::class, 'loginView']);
+Route::get('/admin/employee', [EmployeeController::class, 'employeeView']);
 
-Route::get('/menu', [MenuController::class, 'menuView']);
+Route::get('/admin/menu', [MenuController::class, 'menuView']);
 
-Route::get('/table', [TableController::class, 'tableView']);
+Route::get('/admin/table', [TableController::class, 'tableView']);

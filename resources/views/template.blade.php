@@ -65,7 +65,7 @@
                     <nav id="modernSidebar">
                         <ul class="menu-categories pl-0 m-0" id="topAccordion">
                             <li class="menu">
-                                <a href="/">
+                                <a href="/admin/dashboard">
                                     <div class="">
                                         <i class="flaticon-computer-6"></i>
                                         <span>Dashboard</span>
@@ -74,7 +74,7 @@
                             </li>
 
                             <li class="menu">
-                                <a href="/table">
+                                <a href="/admin/table">
                                     <div class="">
                                         <i class="flaticon-desk-chair"></i>
                                         <span>Table</span>
@@ -83,7 +83,7 @@
                             </li>
 
                             <li class="menu">
-                                <a href="/menu">
+                                <a href="/admin/menu">
                                     <div class="">
                                         <i class="flaticon-cutlery-1"></i>
                                         <span>Menu</span>
@@ -92,7 +92,7 @@
                             </li>
 
                             <li class="menu">
-                                <a href="/employee">
+                                <a href="/admin/employee">
                                     <div class="">
                                         <i class="flaticon-employees"></i>
                                         <span>Employee</span>
@@ -202,7 +202,7 @@
         function logout() {
             localStorage.clear()
 
-            window.location.href = "/login"
+            window.location.href = "/admin/login"
         }
 
         if(profile.image != null){
