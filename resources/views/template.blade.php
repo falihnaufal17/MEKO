@@ -205,7 +205,7 @@
             window.location.href = "/login"
         }
 
-        if(profile.name == null){
+        if(profile.image != null){
             document.querySelector('#logged-pict').src = profile.image
             document.querySelector('#logged-pict-nav').src = profile.image
         }else{

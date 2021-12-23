@@ -9,7 +9,8 @@
         </div>
         <div class="widget-content widget-content-area">
             <div>
-                <form method="POST" autocomplete="off" aria-autocomplete="none" id="edit-employee" onsubmit="submitEditData(event)">
+                <form method="POST" autocomplete="off" aria-autocomplete="none" id="edit-employee" onsubmit="submitDataUpdate(event)">
+                    <input type="hidden" name="imageUrl">
                     <div class="form-group row">
                         <div class="col form-validation" id="employee-edit-name">
                             <label>Name*</label>
@@ -57,7 +58,10 @@
                         </div>
                         <div class="col">
                             <label>Image*</label>
-                            <input type="file" class="form-control" name="image" />
+                            <input type="file" class="form-control" name="image" onchange="onChangeFile(event)" />
+                            <div class="mt-3">
+                                <img class="img-thumbnail" id="preview-edit" />
+                            </div>
                         </div>
                     </div>
                     <div class="row align-items-center justify-content-end">

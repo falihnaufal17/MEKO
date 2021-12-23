@@ -1,3 +1,5 @@
+let idEmployee = null
+
 $(document).ready(function() {
     fetchData()
 
@@ -106,6 +108,7 @@ function fetchData(){
 function showForm(){
     $('#form-add').show()
     $('#lists').hide()
+    $('#preview').show()
 }
 
 function closeForm(){
@@ -114,6 +117,10 @@ function closeForm(){
     $('#lists').show()
     $('#add-employee')[0].reset()
     $('#edit-employee')[0].reset()
+
+    document.querySelector('#preview').classList.add('d-none')
+    document.querySelector('#preview-edit').classList.add('d-none')
+
     checkValidFromResponse({el: "employee-", source: {
         name: '',
         phone: '',
@@ -129,6 +136,7 @@ function closeForm(){
 
 function submitData(e){
     e.preventDefault()
+
     let form = $('#add-employee')
     let formData = new FormData(form[0])
     formData.append('image', $('input[name=image]')[0].files[0])
@@ -165,6 +173,7 @@ function submitData(e){
 }
 
 function openEdit(id){
+    idEmployee = id
     $.ajax({
         type: 'get',
         url: base_url + '/api/auth/employee/' + id,
@@ -182,11 +191,14 @@ function openEdit(id){
         $('input[name=phone').val(res.data.phone)
         $('input[name=email').val(res.data.email)
         $('textarea[name=address').val(res.data.address)
-        $('input[name=image').val(res.data.image)
+        $('input[name=imageUrl]').val(res.data.image)
 
         // Show form edit data employee
         $('#form-edit').show()
         $('#lists').hide()
+
+        document.querySelector('#preview-edit').classList.remove('d-none')
+        $('#preview-edit').prop('src', res.data.image)
     }).catch((err) => {
         console.log(err)
     })
@@ -227,4 +239,67 @@ function openConfirmDelete(id){
         }
 
     })
+}
+
+function submitDataUpdate(e){
+    e.preventDefault()
+    
+    let form = $('#edit-employee')
+    let formData = new FormData(form[0])
+    formData.append('image', $('input[name=image]')[0].files[0])
+    
+    $.ajax({
+        type: 'post',
+        url: base_url + '/api/auth/employee/' + idEmployee,
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false
+    }).then(res => {
+
+        if (idEmployee == profile.id) {
+            let data = {
+                ...profile,
+                ...res.data,
+            }
+
+            localStorage.setItem('profile', JSON.stringify(data))
+        }
+
+        swal({
+            title: 'Success',
+            text: res.message,
+            type: 'success'
+        }).then((res)=>{
+            closeForm()
+            fetchData()
+            
+            if (idEmployee == profile.id) location.reload()
+        })
+    }).catch(err => {
+        checkValidFromResponse({el: "employee-", source: {
+            name: '',
+            phone: '',
+            birth_date: '',
+            birth_place: '',
+            role_id: '',
+            gender: '',
+            email: '',
+            password: '',
+            address: ''
+        }, errResponse: err.responseJSON.data})
+    })
+}
+
+function onChangeFile(e){
+    let file = e.target.files[0]
+    if (file) {
+        let objUrl = URL.createObjectURL(file)
+
+        // document.querySelector('#preview').classList.remove('d-none')
+        document.querySelector('#preview-edit').classList.remove('d-none')
+
+        $('#preview').prop('src', objUrl)
+        $('#preview-edit').prop('src', objUrl)
+    }
 }

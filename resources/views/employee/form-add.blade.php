@@ -63,7 +63,10 @@
                     <div class="form-group row">
                         <div class="col-4">
                             <label>Image*</label>
-                            <input type="file" class="form-control" name="image" />
+                            <input type="file" class="form-control" name="image" onchange="onChangeFile(event)" />
+                            <div class="mt-3">
+                                <img class="img-thumbnail" id="preview" />
+                            </div>
                         </div>
                     </div>
                     <div class="row align-items-center justify-content-end">

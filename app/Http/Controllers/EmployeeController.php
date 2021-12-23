@@ -148,17 +148,17 @@ class EmployeeController extends Controller
             'birth_date' => 'required|date',
             'birth_place' => 'required',
             'phone' => 'required|numeric',
-            'email' => 'required',
-            'image' => 'image'
+            'email' => 'required'
         ];
 
         $validator = Validator::make($payload, $rules, [
-            'required' => "The field :attribute is required",
-            'image' => "The field :attribute must be jpg, jpeg, png, bmp, gif, svg, or webp image"
+            'required' => "The field :attribute is required"
         ]);
 
         if($request->hasFile('image')){
             $imageUrl = Uploader::uploadToS3('employee', $request->image, $request->image->getClientOriginalName());
+        } else {
+            $imageUrl = $payload['imageUrl'];
         }
 
         $exitsUser = Employee::find($id);
@@ -184,6 +184,8 @@ class EmployeeController extends Controller
                 "data" => $validator->errors()
             ], 400);
         }
+
+        unset($payload['imageUrl']);
 
         $employee = Employee::find($id);
         $employee->name = $payload['name'];
