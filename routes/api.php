@@ -33,6 +33,7 @@ Route::group([
     Route::post('/approve/{id}', [MenuController::class, 'approveMenu']);
     Route::post('/reject/{id}', [MenuController::class, 'rejectMenu']);
     Route::post('/change-stock/{id}', [MenuController::class, 'changeStatusStock']);
+    Route::post('/{id}', [MenuController::class, 'update']);
 });
 
 Route::group([

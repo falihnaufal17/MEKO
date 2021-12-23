@@ -31,7 +31,10 @@
                     <div class="form-group row">
                         <div class="col form-validation" id="menu-image">
                             <label>Image*</label>
-                            <input type="file" class="form-control" name="image" />
+                            <input type="file" class="form-control" name="image" onchange="onChangeFile(event)" />
+                            <div class="mt-3">
+                                <img class="img-thumbnail" id="preview" />
+                            </div>
                         </div>
                         <div class="col form-validation" id="menu-category_id">
                             <label>Category*</label>

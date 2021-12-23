@@ -183,4 +183,46 @@ class MenuController extends Controller
             'data' => null
         ]);
     }
+
+    public function update(Request $req, $id){
+        $payload = $req->all();
+        $imageUrl = null;
+        $rules = [
+            'name' => 'required',
+            'status_stock' => 'required',
+            'price' => 'required|numeric',
+            'created_by' => 'required',
+            'category_id' => 'required|numeric',
+            'description' => 'required'
+        ];
+
+        $validator = Validator::make($payload, $rules, [
+            'required' => "The field :attribute is required",
+            'numeric' => "The field :attribute must be number"
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "success" => false,
+                "message" => "Form invalid",
+                "data" => $validator->errors()
+            ], 400);
+        }
+
+        if($req->hasFile('image')){
+            $imageUrl = Uploader::uploadToS3('menu', $payload['image'], $payload['image']->getClientOriginalName());
+        } else {
+            $imageUrl = $payload['imageUrl'];
+        }
+
+        unset($payload['imageUrl']);
+
+        $query = Menu::where('id', $id)->update(array_merge($payload, ['image' => $imageUrl]));
+        
+        return response()->json([
+            "success" => true,
+            "message" => "Success update menu",
+            "data" => $query
+        ]);
+    }
 }

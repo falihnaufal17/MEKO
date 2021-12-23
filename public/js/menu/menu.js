@@ -32,7 +32,7 @@ function fetchDataMenu(){
             {
                 data: 'image',
                 render: (data, type, row) => {
-                    return `<img src=${data} alt=${row.name} class="img-thumbnail" />`
+                    return `<img src='${data}' alt=${row.name} class="img-thumbnail" />`
                 }
             },
             {
@@ -162,8 +162,7 @@ function submitForm(e){
             type: 'success'
         }).then(() => {
             fetchDataMenu()
-            $('#form-add').hide()
-            $('#lists').show()
+            closeForm()
 
             checkValidFromResponse({el: "menu-", source: {
                 name: '',
@@ -202,6 +201,7 @@ function fetchCategory(){
 function showForm(){
     $('#form-add').show()
     $('#lists').hide()
+    $('#preview').show()
 }
 
 function closeForm(){
@@ -210,6 +210,9 @@ function closeForm(){
     $('#lists').show()
     $('#add-menu')[0].reset()
     $('#edit-menu')[0].reset()
+    document.querySelector('#preview').classList.add('d-none')
+    document.querySelector('#preview-edit').classList.add('d-none')
+
     checkValidFromResponse({el: "menu-", source: {
         name: '',
         status_stock: '',
@@ -258,6 +261,8 @@ function openConfirmDelete(id){
 }
 
 function openEdit(id) {
+    idMenu = id
+
     $.ajax({
         type: 'get',
         url: base_url + '/api/menu/' + id
@@ -268,9 +273,12 @@ function openEdit(id) {
         $('input[name=name').val(res.data.name)
         $('select[name=status_stock').val(res.data.status_stock)
         $('input[name=price').val(res.data.price)
-        $('input[name=image').val(res.data.image)
+        $('input[name=imageUrl').val(res.data.image)
         $('select[name=category_id').val(res.data.category_id)
         $('textarea[name=description').html(res.data.description)
+
+        document.querySelector('#preview-edit').classList.remove('d-none')
+        $('#preview-edit').prop('src', res.data.image)
     })
 }
 
@@ -389,4 +397,63 @@ function openModalChangeStock(id, data){
 function openReason(data) {
     $('#reason-text').html(data)
     $('#modal-show-reason').modal('show')    
+}
+
+function submitFormUpdate(e){
+    e.preventDefault()
+
+    let form = $('#edit-menu')
+    let formData = new FormData(form[0])
+    formData.append('image', $('input[name=image]')[0].files[0])
+    formData.append('created_by', profile.name)
+    formData.append('status', 'pending')
+
+    $.ajax({
+        type: 'post',
+        url: base_url + '/api/menu/' + idMenu,
+        data: formData,
+        dataType: 'json',
+        processData: false,
+        contentType: false
+    }).then(res => {
+        swal({
+            title: 'Success',
+            text: res.message,
+            type: 'success'
+        }).then(() => {
+            fetchDataMenu()
+            closeForm()
+
+            checkValidFromResponse({el: "menu-", source: {
+                name: '',
+                status_stock: '',
+                price: '',
+                image: '',
+                category_id: '',
+                description: ''
+            }})
+        })
+    }).catch(err => {
+        checkValidFromResponse({el: "menu-", source: {
+            name: '',
+            status_stock: '',
+            price: '',
+            image: '',
+            category_id: '',
+            description: ''
+        }, errResponse: err.responseJSON.data})
+    })
+}
+
+function onChangeFile(e){
+    let file = e.target.files[0]
+    if (file) {
+        let objUrl = URL.createObjectURL(file)
+
+        document.querySelector('#preview').classList.remove('d-none')
+        document.querySelector('#preview-edit').classList.remove('d-none')
+
+        $('#preview').prop('src', objUrl)
+        $('#preview-edit').prop('src', objUrl)
+    }
 }
