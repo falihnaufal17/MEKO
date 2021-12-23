@@ -11,6 +11,7 @@ let ajax = {
     },
     error: function (jqXHR, textStatus, errorThrown) {
         swal(textStatus.toUpperCase(), jqXHR.responseJSON?.message || jqXHR.statusText, 'error')
+            .then(() => jqXHR.status == 401 ? window.location.href = '/login' : '')
         $("#eq-loader").hide();
     }
 }
